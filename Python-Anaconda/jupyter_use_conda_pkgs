@@ -1,2 +1,37 @@
 事情起因:
-        用Python写网络爬虫
+        在《用Python写网络爬虫》第5章 动态内容,用到PyQt或者PySide,想在电脑上尝试一下，遂出错。
+发展：
+    在jupyter notebook中
+    try:
+        from PySide.QtGui import *
+        from PySide.QtCore import *
+        from PySide.QtWebKit import *
+    except:
+        from PyQt.QtGui import * 
+        from PyQt.QtCore import *
+        from PyQt.QtWebKit import *
+    提示出错，找不到模块。
+    之后pip 安装pyqt, pyside都出错，想到用conda,发现conda已经安装好了pyqt,于是在Python的交互环境(交互环境中可以查看到当前使用的是Python的还是Anaconda的)
+    中先进行尝试,发现不行,也就是说,Python在使用安装的Python环境中的Python而不是Anaconda中的Python,于是删除Python的环境变量,不行。因为是普通用户,只看到了Python Launcher,卸载,还是不行。
+    在文件夹Anaconda的安装目录中查找'pyqt',发现pyqt-x.x.x-pyxxxxxxxxxx_x.json,是其配置文件,查看它的文件路径发现都在/PyQt5的文件夹中。于是在Pytho
+  n的交互环境中,改为import PyQt5,发现成功。
+    之后在jupyter notebook中import,仍然出错。推测是由于jupyter notebook的kernel还是原来Python的Python.exe。
+    由于网上查询之后无法找到如何更改引擎,遂准备卸载掉Python,只用Anaconda(之前已卸载并重装过)。于是用管理员账户进去,点击卸载,提示"管理员已禁止此行为
+  blabla",网上查阅到Python需要用原来安装包修改/安装/卸载, 然后找到原来的安装包,还是同样提示。在python.org中下载其他的安装包,安装同样提示,然后想到用
+  cmd(管理员身份登入),执行新的安装包,可以正常安装/卸载,但还是不能卸载它的,然后又下载了本地版本的64位(原版本是32位),可以正常安装/卸载,仍然无法卸载它的。
+  再次打开原安装包,可以进行卸载。
+    以普通账号登入,点击原桌面jupyter notebook快捷方式,一闪而过。在cmd中运行"jupyter notebook",提示Fatal error:unable to create process using
+    '"',网上没能找到答案。此时彻底删除Python未删除的文件。在cmd中运行,正常,推测原jupyter notebook还是原来的Python的jupyter notebook
+    开始菜单中Anaconda中jupyter notebook正常。运行jupyter notebook, 提示kernel error,百度"jupyter kernel error",找到CSDN的一篇博客,通过jupyter kernelspec list查看安装的内核和位置,找到kernel.json文件,查看Python的编译器路径
+  是否有问题。确实有！指向位原Python的python.exe,修改后指向Anaconda中的python.exe。重启jupyter notebook正常。之后又修改默认打开路径。
+  
+  总结：
+  1.Python官网下载Python比较慢,Anaconda在清华开源软件镜像源可以下载。
+  2.Python软件卸载需要用到其本身安装包,且最好不要自己手动卸载其部分程序,比如Python Launcher。卸载完成后，确认安装目录下没有东西。
+  3.jupyter notebook kernel error:
+    jupyter kernel list
+    修改kernel.json文件中Python的编译器的指向
+    原答案中有:python -m ipykernel install --user重新安装内核,但是本问题中没有用到,知识作为记录
+  4.修改jupyter notebook默认打开路径:
+    jupyter notebook --generate-config       //jupyter notebook的配置文件,结果中有配置文件的路径
+    找到jupyter_notebook_config.py,取消c.NotebookApp.notebook_dir=''的注释,并在''中添加目标路径
