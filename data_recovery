@@ -1,0 +1,19 @@
+结果：
+    恢复相机SD卡中 删除一些数据之后又进行了一定的存储之后的 数据(照片)
+过程：
+
+    首先使用Disk Genius进行扫描，发现1000+文件，进行恢复，错误类型“未注册”，这里的“未注册”指的是恢复文件时发生错误，该错误时DG未知的。当然，要恢复大批量大文件，必须是DG标准版及以上。
+
+    然后使用easyrecovery（Kroll Ontrack\)，跳过注册之后扫描文件保存时，程序出现错误，中止。所以也未能判断免费版是不是可以恢复大文件。
+
+    百度搜索后找到了easyrecovery中文版，事实上是所谓的“互盾数据恢复工作室”的一款作品，扫描后发现会出现预览图，但是，需要购买才能使用。继续百度注册码，没找到。但是看到评论不好。
+
+    继续搜索，突然发现一个知乎问题https://www.zhihu.com/question/21017226，在用户名为fei cheng的知乎用户答案发现https://www.lifewire.com/recuva-review-2622892，同时在匿名知乎用户下发现 https://www.cgsecurity.org/Download_and_donate.php/testdisk-7.0.win64.zip。
+
+    在使用Recuva时，使用Deep scan，找到了很久以前的相片，但不是需要的。之后使用TestDisk&PhotoRec的图形界面恢复成功恢复照片！
+心得：
+
+    判断照片能否被该软件所恢复的一个小技巧是，看它扫描到的照片文件，是否有缩略图。
+    Recuva是免费软件，暂时没有发现大小限制，当然也有收费版，没有尝试。
+    TestDisk&PhotoRec 是开源免费使用，愿意的话可以donate
+    以后恢复软件更想先用TestDisk,再用Recuva
