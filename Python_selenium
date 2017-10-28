@@ -1,0 +1,20 @@
+python 使用selenium:
+selenium所使用的webdriver 接口有FireFox，Chrome等,但要注意不是只要有FireFox,Chrome浏览器就可以,要有geckodriver.exe,chromedriver.exe才可以
+(都需要单独下载) 
+geckodriver.exe:https://github.com/mozilla/geckodriver/releases
+chromedriver.exe:https://npm.taobao.org/mirrors/chromedriver
+chromedriver.exe: http://chromedriver.storage.googleapis.com/index.html
+如果没有这个东西,会报错如下：
+Message: 'chromedriver' executable needs to be in PATH.
+即使在有了之后,也要放在他可以找到的地方,有三种方法：
+1.*driver.exe和python.exe放在同一个目录下
+2.进行如下代码(其他selenium要导入的以及使用就不写啦):
+    driver = webdriver.Chrome(r'chromedriver.exe的完整路径')
+    driver.close()
+3.官方文档中写把chromedriver.exe加入环境变量就可以,尝试之后未能实现.
+
+在上述步骤完成之后,如果浏览器打开仍然报错,停止运行,则应该是浏览器与对应的*driver.exe版本不匹配,所以一定要注意！！！
+
+在其他搜索中有如下发现：
+webdriver支持PC浏览器驱动,伪浏览器驱动,移动端驱动.
+浏览器驱动主要用于web兼容性测试,伪浏览器主要用于功能性测试
