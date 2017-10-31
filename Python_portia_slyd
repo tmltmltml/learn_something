@@ -25,3 +25,87 @@ this directory structure, and the plugin file should not be named myproject.py (
 　　E:\DjangoWord\mysite\polls
   这种方法不能在不同Python版本中共享
   3.在电脑环境变量中找PYTHONPATH(没有则创建)，添加路径，以','隔开，该方法可以永久将路径加入Python的sys.path中。
+  
+  
+  之后运行继续报错，No module named 'portia_server'
+  百度之后进入/portia/portia_server pip install -r requirements.txt
+  报错：_mysql.c(42): fatal error C1083: Cannot open include file: 'config-win.h': No such file or directory
+  百度之后，需要安装mysql connector，也就是对mysql有依赖！！！
+  在：https://dev.mysql.com/downloads/connector/c/ 
+  下载合适版本检查md5码安装 安装之后，仍然报如此错!!!
+  
+  pip install pymsql 继续pip install -r requirements.txt 
+  同样出同样错
+  
+  在requirements.txt中删除对mysql-python的要求。pip intsall -r -requirements.txt成功，但是仍然没有portia_server
+  将portia_server 移到\Lib\site-packages 出错，提示：db_repo  
+  按照上述方法分别建立.pth文件，终究不是长久之计啊！
+  报错:没有PyQt5
+  
+  pip install pyqt5
+  报错：ModuleNotFoundError: No module named 'PyQt5.QtWebKitWidgets'
+  
+  修改/Lib/site-packages/splash/browser-tab.py 
+  from PyQt5.QtWebKitWidgets import QWebPage
+  from PyQt5.QtWebEngineWidgets import *
+  出错： no module named 'PyQt5.QtWebKit'
+  
+  修改 from PyQt.QtWebKit import QWebSetting
+  from PyQt5.QWebEngineSettings import QWebSettings
+  还有一堆堆出错，主要问题在PyQt5的改版使很多模块找不到，得更名，很烦。之后就是在官网比对修改模块引入。
+  https://www.riverbankcomputing.com/software/pyqt/download5
+  没有找到呀，忽然发现一直操作的是portia 明明下载了portia_python3，我怕是个傻子，
+  删除旧环境，重新搞！
+  然后赶紧拷贝python3的版本到新环境下，
+  进入 \portia-portia_python3\slyd 
+  pip install -r requirements.txt
+  twistd -n slyd
+  报错：'tiwstd'不是内部或外部命令，也不是可运行的程序
+  
+  pip install Scrapy
+  报同样错
+  
+  pip install -e slybot
+  为防止出现其他错误进入/portia/slybot pip install -r requirements.txt
+  
+  pip unistall twisted
+  pip install twisted
+  twistd
+  报错：No moudule named 'win32api'
+  
+  pip install pypiwin32  (从stack overflow找)
+  之后在\Lib\site-packages 中建立slyd.pth文件指向portia中的slyd文件夹
+  
+  twistd -n slyd
+  报错：No module named 'django'
+  
+  pip install django
+  报错：No module named 'portia_server'
+  
+  在\Lig\site-packages 中新建portia_server
+  报错：No module named 'whitenoise'
+  
+  进入\portia-portia_python3的 \portia_server \slybot
+  pip install -r requirements.txt 有setup.py的
+  python setup.py build python setup.py install
+  报错：No Module named 'PyQt5'
+  进入\slyd
+  pip setup.py build
+  pip setup.py install
+  twistd -n slyd
+  报错：No module named 'PyQt5'
+  pip install pyqt5=5.7.1
+  twistd -n slyd
+  报错：No module named 'PyQt5.QtWebKitWidgets'
+  真实环境中PyQt5是5.6的环境，pip uninstall pyqt5,再把真实环境的拷进去
+  twistd -n slyd
+  报错：Python已停止工作
+  
+心得：
+1.官方文档一定认真看！正确理解！
+2.前两天requests的文档因为汉语翻译的问题，与原文相差甚远，没理解，看原文才知道的
+3.windows还是.exe省事！
+4.或许用portia的docker 比较省事
+5.我认为主要问题还是Portia 更偏向于Python2.x 代码主要是Python2.x写的
+6.早知道就不要--no-site-packages了，心累
+7.适当参考 https://www.biaodianfu.com/centos-7-install-portia-log.html
