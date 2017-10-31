@@ -109,3 +109,4 @@ this directory structure, and the plugin file should not be named myproject.py (
 5.我认为主要问题还是Portia 更偏向于Python2.x 代码主要是Python2.x写的
 6.早知道就不要--no-site-packages了，心累
 7.适当参考 https://www.biaodianfu.com/centos-7-install-portia-log.html
+8.不要因为下载速度慢而造成时间的浪费
