@@ -1,0 +1,27 @@
+Portia 使用
+pip install virtualenv
+virtualenv portia_example --no-site-packages
+source portia_example/bin/activate #猜测为Linux在Windows上不能正常使用
+Windows上找到portia_example环境,/Script/activate 激活环境
+
+在https://github.com/scrapinghub/portia download文件或者git 克隆到环境中(或许不在环境中也可以，但是没尝试)
+进入portia/slyd 
+pip install -r requirements.txt
+twistd -n slyd
+若提示Unknown command slyd，表明slyd 未作为插件插入到twisted中。
+查阅官方文档 http://twistedmatrix.com/documents/13.2.0/core/howto/tap.html  注意到(以大写标注):
+
+During development of your project, Twisted plugins can be loaded from a special directory in your project, 
+assuming your TOP LEVEL DIRECTORY ends up in SYS.PATH. Create a directory named twisted containing a directory named plugins, 
+and add a file named myproject_plugin.py to it. This file will contain your plugin. Note that you should not add any __init__.py files to 
+this directory structure, and the plugin file should not be named myproject.py (because that would conflict with your project's module name).
+
+而且此处sys.path并不等价于电脑环境变量中的'PATH',而是Python运行时寻找Packages的目录。有以下三种方法修改:
+1.在脚本中sys.path.append(path) 但是退出Python环境之后消失
+2.在Lib\site-packages中建立.pth文件内容如下：
+    # .pth file for the my project(这行是注释)
+　　E:\DjangoWord
+　　E:\DjangoWord\mysite
+　　E:\DjangoWord\mysite\polls
+  这种方法不能在不同Python版本中共享
+  3.在电脑环境变量中找PYTHONPATH(没有则创建)，添加路径，以','隔开，该方法可以永久将路径加入Python的sys.path中。
