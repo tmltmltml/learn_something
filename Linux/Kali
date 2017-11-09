@@ -1,0 +1,22 @@
+Kali 安装好之后更新源
+cp /etc/apt/sources.list /etc/apt/sources.list.bak
+gedit /etc/apt/sources.list
+ 添加源：
+deb https://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
+deb-src https://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
+保存，退出
+apt-get update
+apt-get upgrade
+apt-get dist-upgrade //解决依赖性问题，可能有风险，可以不用执行
+apt-get clean   //可以不用执行
+apt-get install linux-headers-$(uname -r)
+若安装失败，reboot后再执行
+apt-cache search linux-headers
+保证uname -r的系统版本号和头文件版本号可以对应
+
+*内核头文件检测  可以不执行
+dpkg-query -s linux-headers-$(uname -r)
+
+挂载VirtualBox Additions，将VBoxLinuxAdditions.run 拷贝到/root下面
+chmod 755 VBoxLinuxAdditions.run
+./VBoxLinuxAdditions.run
